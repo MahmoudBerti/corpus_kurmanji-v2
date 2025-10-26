@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Corpus - Kurdish Corpus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/kurdish-corpus.png') }}" alt="Kurdish Corpus" style="height: 120px; width: 280px; margin: 20px auto;">
+
+    <h1>📚 About the Corpus</h1>
+
+    <nav class="about-nav">
+        <a href="/">← Home</a>
+        <a href="/about_me">About Me →</a>
+    </nav>
+
+    <div class="about-container">
+        <div class="about-section">
+            <h2>📂 What is this corpus?</h2>
+            <p>This is a Kurdish Kurmanji corpus composed of several literary and linguistic genres:</p>
+            <ul>
+                <li><strong>Poetry (Helbest)</strong> – Kurdish poems</li>
+                <li><strong>Novels (Roman)</strong> – Kurdish novels and stories</li>
+                <li><strong>Theatre (Şano)</strong> – Kurdish theatre works</li>
+                <li><strong>Newspaper (Rojname)</strong> – Press articles</li>
+                <li><strong>Website (Malper)</strong> – Content from Kurdish websites</li>
+                <li><strong>Specific Corpus</strong> – Research-specific corpora</li>
+                <li><strong>Traditional Songs (Dengbêj)</strong> – Oral traditional Kurdish songs</li>
+                <li><strong>Dictionary (Ferheng)</strong> – Kurdish dictionaries and lexicons</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>🎯 Objectives</h2>
+            <ul>
+                <li>Preserve the Kurdish language</li>
+                <li>Support linguistic research</li>
+                <li>Advance Kurdish NLP technologies</li>
+                <li>Document the richness of Kurdish literature</li>
+                <li>Archive Dengbêj oral traditions</li>
+                <li>Build cultural and lexicographic resources</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>📊 Statistics</h2>
+            <p>The corpus currently contains:</p>
+            <ul>
+                <li><strong>{{ total_docs }}</strong> total documents</li>
+                <li><strong>{{ stats.helbest }}</strong> poetry documents</li>
+                <li><strong>{{ stats.roman }}</strong> novels</li>
+                <li><strong>{{ stats.sano }}</strong> theatre documents</li>
+                <li><strong>{{ stats.rojname }}</strong> newspapers</li>
+                <li><strong>{{ stats.malper }}</strong> website documents</li>
+                <li><strong>{{ stats.corpus_specifique }}</strong> specific corpus documents</li>
+                <li><strong>{{ stats.dengbej }}</strong> traditional songs</li>
+                <li><strong>{{ stats.ferheng }}</strong> dictionaries</li>
+            </ul>
+            <a href="/stats" class="stats-link">🔍 Detailed statistics</a>
+        </div>
+
+        <div class="about-section">
+            <h2>🔍 How to use?</h2>
+            <ol>
+                <li>Type your word</li>
+                <li>Select the genre (optional)</li>
+                <li>Click "Search"</li>
+                <li>View results in the table</li>
+            </ol>
+            <p>For example, to search in the dictionary:</p>
+            <ul>
+                <li>Type the word "ziman"</li>
+                <li>Select "Dictionary"</li>
+                <li>Click "Search"</li>
+            </ul>
+        </div>
+
+        <div class="about-section">
+            <h2>📖 Dictionary usage</h2>
+            <p>The dictionary section contains words and their meanings. Example:</p>
+            <div class="example-box">
+                <p><strong>kurmancî</strong> – the most spoken Kurdish dialect</p>
+                <p><strong>ferheng</strong> – a book that contains words and definitions</p>
+                <p><strong>peyv</strong> – the basic unit of language (word)</p>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>📞 Contact</h2>
+            <p>For suggestions or questions:</p>
+            <p>📧 Email: example@kurdish-corpus.com</p>
+            <p>For dictionary contributions or new words, please contact us.</p>
+        </div>
+    </div>
+
+</body>
+</html>

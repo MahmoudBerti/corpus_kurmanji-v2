@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results - {{ term }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='print.css') }}" media="print">
+</head>
+<body>
+    <div class="container compact">
+        <img src="{{ url_for('static', filename='img/kurdish-corpus.png') }}" alt="Kurdish Corpus" style="height: 120px; width: 280px; margin: 20px auto; display:block;">
+
+        <div class="results-header">
+            <h1>Search results for: "{{ term }}"
+                {% if selected_genre and selected_genre != 'all' %}
+                <span class="genre-indicator">
+                    {% if selected_genre == 'helbest' %}Poetry
+                    {% elif selected_genre == 'roman' %}Novels
+                    {% elif selected_genre == 'sano' %}Theatre
+                    {% elif selected_genre == 'rojname' %}Newspaper
+                    {% elif selected_genre == 'malper' %}Website
+                    {% elif selected_genre == 'corpus_specifique' %}Specific Corpus
+                    {% elif selected_genre == 'dengbej' %}Traditional Songs
+                    {% elif selected_genre == 'ferheng' %}Dictionary
+                    {% else %}{{ selected_genre }}{% endif %}
+                </span>
+                {% endif %}
+            </h1>
+
+            <div class="meta">
+                Total frequency: <strong>{{ frequency }}</strong> •
+                ⏰ {{ now.strftime('%d/%m/%Y %H:%M') if now else '' }}
+            </div>
+        </div>
+
+        <div class="main-nav" style="margin-bottom: .75rem;">
+            <a href="/">🏠 Home</a>
+            <a href="/about_corpus">About Corpus</a>
+            <a href="/about_me">About Me</a>
+            <a href="/stats">📊 Statistics</a>
+            <a href="/export_options">📥 Export</a>
+            <button onclick="window.print()" class="print-btn">🖨️ Print</button>
+        </div>
+
+        {% if results %}
+        <div class="results-info">
+            <p><strong>{{ results|length }}</strong> results found</p>
+        </div>
+
+        <table class="kwic-table">
+            <thead>
+                <tr>
+                    <th>Left Context</th>
+                    <th>Word</th>
+                    <th>Right Context</th>
+                    <th>File</th>
+                    <th>Line</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for res in results %}
+                <tr>
+                    <td><span class="kwic-chunk">{{ res.left }}</span></td>
+                    <td class="kwic-word">{{ res.word }}</td>
+                    <td><span class="kwic-chunk">{{ res.right }}</span></td>
+                    <td class="source-cell">
+                        <div class="kwic-chunk">{{ res.source }}</div>
+                    </td>
+                    <td class="source-cell">
+                        <div class="kwic-chunk">{{ res.line_num }}</div>
+                    </td>
+                    <td>
+                        <!-- Badge dynamique avec classe liée au genre -->
+                        <span class="genre-badge {{ res.genre }}">{{ res.genre }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+        <div class="no-results">
+            <p>No result found for "<strong>{{ term }}</strong>"</p>
+            <p>Please try another word or select another genre.</p>
+        </div>
+        {% endif %}
+
+        <div class="print-footer">
+            <p>Kurdish Corpus - www.kurdish-corpus.com - Search: "{{ term }}" - {{ now.strftime('%d/%m/%Y %H:%M') if now else '' }}</p>
+        </div>
+    </div>
+
+    <script>
+        // Shortcut: Ctrl+P to print
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>

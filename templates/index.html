@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kurdish Corpus (Kurmanji)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/kurdish-corpus.png') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/kurdish-corpus.png') }}" alt="Kurdish Corpus">
+
+    <h1>Kurdish Corpus (Kurmanji)</h1>
+
+    <!-- Main navigation -->
+    <nav class="main-nav">
+        <a href="/about_corpus" class="nav-link">About Corpus (Derbarê Korpusê)</a>
+        <a href="/about_me" class="nav-link">About Me</a>
+        <a href="/stats" class="nav-link">📊 Statistics</a>
+        <a href="/export_options" class="nav-link">📥 Export</a>
+    </nav>
+
+    <!-- Search form -->
+    <form method="POST" id="searchForm">
+        <div class="genre-filters">
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="all" checked>
+                <span>All</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="helbest">
+                <span>Poetry (Helbest)</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="roman">
+                <span>Novels (Roman)</span>
+            </label>
+            <label class="genre-checkbox">
+                <!-- ⚠️ correction : "şano" -> "sano" était une erreur -->
+                <input type="radio" name="genre" value="sano">
+                <span>Theatre (Şano)</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="rojname">
+                <span>Newspaper (Rojname)</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="malper">
+                <span>Website (Malper)</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="corpus_specifique">
+                <span>Specific Corpus</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="dengbej">
+                <span>Traditional Songs (Dengbej)</span>
+            </label>
+            <label class="genre-checkbox">
+                <input type="radio" name="genre" value="ferheng">
+                <span>Dictionary (Ferheng)</span>
+            </label>
+        </div>
+
+        <p>Type your word here</p>
+
+        <div class="search-container">
+            <input type="text" name="term" id="termInput" placeholder="Search..." required autocomplete="off">
+            <button type="submit">Search</button>
+        </div>
+
+        <div id="autocompleteResults" class="autocomplete-results"></div>
+    </form>
+
+    <!-- Virtual Keyboard -->
+    <div class="vk-wrapper">
+        <button id="vkToggle" type="button" class="vk-toggle" aria-expanded="false" aria-pressed="false">
+            ⌨️ Kurmanji Keyboard
+        </button>
+        <div id="vk" class="vk" role="group" aria-label="Kurmanji Keyboard">
+            <div class="vk-tools">
+                <button type="button" class="vk-key" data-action="backspace">⌫</button>
+                <button type="button" class="vk-key" data-action="space">Space</button>
+                <button type="button" class="vk-key" data-action="clear">Clear</button>
+                <button type="button" class="vk-key" data-action="upper">⇧/⇩</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secondary navigation -->
+    <nav>
+        <a href="/neologismes">🆕 Neologism Detection</a> |
+        <a href="/stats">📊 Statistics</a>
+    </nav>
+
+    <script src="{{ url_for('static', filename='keyboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='autocomplete.js') }}"></script>
+</body>
+</html>

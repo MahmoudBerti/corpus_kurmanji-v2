@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Corpus Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/kurdish-corpus.png') }}" alt="Kurdish Corpus" style="height: 120px; width: 280px; margin: 20px auto;">
+
+    <h1>📊 Corpus Statistics</h1>
+
+    <nav class="about-nav">
+        <a href="/">← Back to Home</a>
+        <a href="/about_corpus">About Corpus →</a>
+    </nav>
+
+    <div class="stats-container">
+        <div class="stat-card total">
+            <h3>Total Documents</h3>
+            <p class="stat-number">{{ stats.total }}</p>
+            <p class="stat-subtitle">All files in the corpus</p>
+        </div>
+
+        <div class="stat-cards">
+            <div class="stat-card">
+                <h3>📜 Poetry</h3>
+                <p class="stat-number">{{ stats.helbest }}</p>
+                <p class="stat-folder">Folder: {{ genres.helbest }}</p>
+                <p class="stat-desc">Kurdish poems</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>📖 Novels</h3>
+                <p class="stat-number">{{ stats.roman }}</p>
+                <p class="stat-folder">Folder: {{ genres.roman }}</p>
+                <p class="stat-desc">Stories and novels</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🎭 Theatre</h3>
+                <p class="stat-number">{{ stats.sano }}</p>
+                <p class="stat-folder">Folder: {{ genres.sano }}</p>
+                <p class="stat-desc">Theatrical works</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>📰 Newspaper</h3>
+                <p class="stat-number">{{ stats.rojname }}</p>
+                <p class="stat-folder">Folder: {{ genres.rojname }}</p>
+                <p class="stat-desc">Press articles</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🌐 Websites</h3>
+                <p class="stat-number">{{ stats.malper }}</p>
+                <p class="stat-folder">Folder: {{ genres.malper }}</p>
+                <p class="stat-desc">Online Kurdish content</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🔍 Specific Corpus</h3>
+                <p class="stat-number">{{ stats.corpus_specifique }}</p>
+                <p class="stat-folder">Folder: {{ genres.corpus_specifique }}</p>
+                <p class="stat-desc">Specialized subcorpora</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🎵 Traditional Songs</h3>
+                <p class="stat-number">{{ stats.dengbej }}</p>
+                <p class="stat-folder">Folder: {{ genres.dengbej }}</p>
+                <p class="stat-desc">Dengbêj songs</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>📚 Dictionary</h3>
+                <p class="stat-number">{{ stats.ferheng }}</p>
+                <p class="stat-folder">Folder: {{ genres.ferheng }}</p>
+                <p class="stat-desc">Wordlists and dictionaries</p>
+            </div>
+        </div>
+
+        <div class="word-stats">
+            <h3>📊 Word Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Unique Words:</span>
+                    <span class="stat-value">{{ unique_words }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Words:</span>
+                    <span class="stat-value">{{ total_words }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Avg Words per Doc:</span>
+                    <span class="stat-value">
+                        {% if stats.total > 0 %}
+                            {{ (total_words / stats.total)|round|int }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="genre-comparison">
+            <h3>📈 Genre Comparison</h3>
+            <div class="comparison-grid">
+                {% for genre_key, genre_name in genres.items() %}
+                <div class="comparison-item">
+                    <span class="comparison-label">{{ genre_name }}:</span>
+                    <div class="comparison-bar">
+                        <div class="bar-fill" style="width: {% if stats.total > 0 %}{{ (stats[genre_key] / stats.total * 100)|round|int }}{% else %}0{% endif %}%">
+                            <span class="bar-text">{% if stats.total > 0 %}{{ (stats[genre_key] / stats.total * 100)|round|int }}{% else %}0{% endif %}%</span>
+                        </div>
+                    </div>
+                    <span class="comparison-value">{{ stats[genre_key] }} docs</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="export-section">
+            <h3>📤 Export Data</h3>
+            <p>Download words of the corpus:</p>
+            <a href="/export_options" class="export-btn">📥 Export Words</a>
+            <p class="export-note">You can export by genre or full corpus.</p>
+
+            <p>Download word frequencies:</p>
+            <a href="/export_stats" class="export-btn">📊 Export CSV</a>
+        </div>
+
+        <div class="last-update">
+            <p>🕒 Last update: {{ now.strftime('%Y-%m-%d %H:%M') if now else '' }}</p>
+        </div>
+    </div>
+</body>
+</html>

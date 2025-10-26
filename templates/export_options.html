@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Export Words - Kurdish Corpus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/kurdish-corpus.png') }}" alt="Kurdish Corpus" style="height: 120px; width: 280px; margin: 20px auto;">
+
+    <h1>📤 Export Words</h1>
+
+    <nav class="about-nav">
+        <a href="/">← Home</a>
+        <a href="/stats">📊 Statistics →</a>
+    </nav>
+
+    <div class="export-container">
+        <div class="about-section">
+            <h2>ℹ️ How to Export?</h2>
+            <p>You can export all words from the corpus or only those of a specific genre.</p>
+        </div>
+
+        <div class="export-options">
+            <div class="export-option">
+                <h3>📝 Word List</h3>
+                <p>Unique words – alphabetical order</p>
+                <div class="export-buttons">
+                    <a href="{{ url_for('export_words') }}?freq=false" class="export-btn">
+                        📥 Full Corpus
+                    </a>
+                    {% for genre_key, genre_name in genres.items() %}
+                    <a href="{{ url_for('export_words') }}?genre={{ genre_key }}&freq=false" class="export-btn">
+                        📥 {{ genre_name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="export-option">
+                <h3>📊 Word Frequencies</h3>
+                <p>Words with number of occurrences</p>
+                <div class="export-buttons">
+                    <a href="{{ url_for('export_words') }}?freq=true" class="export-btn freq-btn">
+                        📊 Full Corpus
+                    </a>
+                    {% for genre_key, genre_name in genres.items() %}
+                    <a href="{{ url_for('export_words') }}?genre={{ genre_key }}&freq=true" class="export-btn freq-btn">
+                        📊 {{ genre_name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="export-info">
+            <h3>ℹ️ Notes</h3>
+            <ul>
+                <li><strong>Word List:</strong> Unique words only, alphabetical order</li>
+                <li><strong>Word Frequencies:</strong> Word + occurrence count</li>
+                <li>Very short words (1 letter) are excluded</li>
+                <li>All words are stored in lowercase</li>
+            </ul>
+        </div>
+
+        <div class="stats-preview">
+            <h3>📈 Word Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Unique Words:</span>
+                    <span class="stat-value">{{ unique_words }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Words:</span>
+                    <span class="stat-value">{{ total_words }}</span>
+                </div>
+            </div>
+
+            <div class="genre-stats">
+                <h4>Words by Genre:</h4>
+                <ul>
+                    {% for genre_key, genre_name in genres.items() %}
+                    <li>
+                        <strong>{{ genre_name }}:</strong>
+                        {{ genre_stats[genre_key].unique_words }} unique words
+                        ({{ genre_stats[genre_key].total_words }} total)
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

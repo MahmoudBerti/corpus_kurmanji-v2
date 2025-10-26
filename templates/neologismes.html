@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <title>Néologismes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .neo-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .neo-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .neo-count {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #444;
+        }
+        .neo-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .neo-item {
+            background: #f7f7f7;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95em;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .export-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: #2c7be5;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        .export-btn:hover {
+            background: #1a5dbf;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="neo-container">
+        <div class="neo-header">
+            <h1>🆕 Détection des Néologismes</h1>
+            <p class="neo-count">Total détectés : {{ count }}</p>
+            <a href="/export_neologismes" class="export-btn">📥 Exporter en TXT</a>
+        </div>
+
+        <div class="neo-list">
+            {% for word in neologismes %}
+                <div class="neo-item">{{ word }}</div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="back-link">⬅ Retour à l'accueil</a>
+    </div>
+</body>
+</html>
